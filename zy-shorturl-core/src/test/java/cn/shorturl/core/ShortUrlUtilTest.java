@@ -4,22 +4,22 @@ import cn.shorturl.core.enums.HashType;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ShortUrlTest {
+public class ShortUrlUtilTest {
 
     ShortUrlConfig config;
 
-    ShortUrl shortUrl;
+    ShortUrlUtil shortUrlUtil;
 
     @Before
     public void init() {
         config = new ShortUrlConfig().setHashType(HashType.MURMUR3_32_FIXED);
-        shortUrl = new ShortUrl(config);
+        shortUrlUtil = new ShortUrlUtil(config);
     }
 
     @Test
     public void testGen() {
         String url = "http://www.baidu.com//?asdasdasdaas=das==wqe===gfa=sd=asf=g=eq=w===a=sd=as=fg=w=d=as=d=as=f=w=";
-        String gen = shortUrl.gen(url);
+        String gen = shortUrlUtil.gen(url);
         System.out.println(gen);
     }
 

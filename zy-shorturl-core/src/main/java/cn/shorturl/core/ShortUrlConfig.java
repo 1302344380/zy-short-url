@@ -24,4 +24,9 @@ public class ShortUrlConfig {
      */
     private StoreType storeType = StoreType.MEMORY;
 
+    /**
+     * 最大重试次数
+     */
+    private Integer retryMax = 5;
+
 }

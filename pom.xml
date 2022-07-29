@@ -11,6 +11,7 @@
     <modules>
         <module>zy-shorturl-core</module>
         <module>zy-shorturl-spring-boot-starter</module>
+        <module>zy-shorturl-store</module>
     </modules>
 
     <properties>
