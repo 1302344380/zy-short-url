@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <version>2.7.1</version>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+    </parent>
+
     <groupId>cn.zzzykj</groupId>
     <artifactId>zy-short-url</artifactId>
     <packaging>pom</packaging>
@@ -12,6 +18,7 @@
         <module>zy-shorturl-core</module>
         <module>zy-shorturl-spring-boot-starter</module>
         <module>zy-shorturl-store</module>
+        <module>zu-shorturl-web</module>
     </modules>
 
     <properties>
