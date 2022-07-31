@@ -1,6 +1,7 @@
 package cn.shorturl.store.store;
 
 import cn.shorturl.core.ShortUrl;
+import cn.shorturl.core.ShortUrlUtil;
 import cn.shorturl.store.ShortUrlStore;
 
 /**
@@ -8,6 +9,9 @@ import cn.shorturl.store.ShortUrlStore;
  */
 public class JdbcShortUrlStore extends ShortUrlStore {
 
+    public JdbcShortUrlStore(ShortUrlUtil util) {
+        super.util = util;
+    }
 
     @Override
     protected ShortUrl add(ShortUrl shortUrl) {
@@ -17,6 +21,11 @@ public class JdbcShortUrlStore extends ShortUrlStore {
     @Override
     public ShortUrl get(String hash) {
         return null;
+    }
+
+    @Override
+    public boolean contains(String hash) {
+        return false;
     }
 
 }

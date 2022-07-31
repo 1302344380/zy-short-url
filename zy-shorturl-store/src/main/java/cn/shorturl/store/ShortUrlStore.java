@@ -1,7 +1,6 @@
 package cn.shorturl.store;
 
 import cn.shorturl.core.ShortUrl;
-import cn.shorturl.core.ShortUrlConfig;
 import cn.shorturl.core.ShortUrlUtil;
 
 import java.util.Date;
@@ -30,12 +29,16 @@ public abstract class ShortUrlStore {
      */
     public ShortUrl add(String url, Date expireTime) {
         Integer max = util.getConfig().getRetryMax();
-        if (max == null) {
-            max = 5;
+        if (max == null || max < 1) {
+            max = 10;
         }
         ShortUrl shortUrl = new ShortUrl().setUrl(url).setGmtExpire(expireTime).setGmtCreate(new Date());
         for (int i = 0; i < max; i++) {
             String hash = hash(url);
+            if (contains(hash)) {
+                url += (int) (Math.random() * 10);
+                continue;
+            }
             try {
                 shortUrl.setHash(hash);
                 add(shortUrl);
@@ -50,6 +53,7 @@ public abstract class ShortUrlStore {
     /**
      * 添加短链接(内部访问, 请勿外部访问)
      * @param shortUrl 短链接
+     * @return 短链接
      */
     protected abstract ShortUrl add(ShortUrl shortUrl);
 
@@ -59,6 +63,13 @@ public abstract class ShortUrlStore {
      * @return 原链接
      */
     public abstract ShortUrl get(String hash);
+
+    /**
+     * Hash是否已经存在
+     * @param hash Hash
+     * @return 是否已经存在
+     */
+    public abstract boolean contains(String hash);
 
     /**
      * 对URL进行Hash编码
