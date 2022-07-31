@@ -1,7 +1,0 @@
-server:
-  port: 8090
-
-shorturl:
-  store:
-    retryMax: 6
-    store-type: redis
