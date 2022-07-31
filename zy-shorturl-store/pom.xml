@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.zzzykj</groupId>
-            <artifactId>zy-short-url-core</artifactId>
+            <artifactId>zy-shorturl-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
