@@ -9,14 +9,16 @@ import java.util.Date;
 /**
  * @author Lenovo
  */
-public interface ShortUrlStore {
+public abstract class ShortUrlStore {
+
+    protected ShortUrlUtil util;
 
     /**
      * 添加短连接(外部访问)
      * @param url 原链接
      * @return 短连接
      */
-    default ShortUrl add(String url) {
+    public ShortUrl add(String url) {
         return add(url, null);
     }
 
@@ -26,8 +28,8 @@ public interface ShortUrlStore {
      * @param expireTime 过期时间
      * @return 短连接
      */
-    default ShortUrl add(String url, Date expireTime) {
-        Integer max = getConfig().getRetryMax();
+    public ShortUrl add(String url, Date expireTime) {
+        Integer max = util.getConfig().getRetryMax();
         if (max == null) {
             max = 5;
         }
@@ -37,6 +39,7 @@ public interface ShortUrlStore {
             try {
                 shortUrl.setHash(hash);
                 add(shortUrl);
+                return shortUrl;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -48,26 +51,22 @@ public interface ShortUrlStore {
      * 添加短链接(内部访问, 请勿外部访问)
      * @param shortUrl 短链接
      */
-    ShortUrl add(ShortUrl shortUrl);
+    protected abstract ShortUrl add(ShortUrl shortUrl);
 
     /**
      * 获取短链接
      * @param hash 短链接
      * @return 原链接
      */
-    ShortUrl get(String hash);
+    public abstract ShortUrl get(String hash);
 
     /**
      * 对URL进行Hash编码
      * @param url 原链接
      * @return 短链接
      */
-    String hash(String url);
-
-    /**
-     * 获取配置对象
-     * @return 配置对象
-     */
-    ShortUrlConfig getConfig();
+    public String hash(String url) {
+        return util.gen(url);
+    }
 
 }

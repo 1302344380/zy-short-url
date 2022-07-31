@@ -17,6 +17,13 @@
     </properties>
 
     <dependencies>
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+
         <!-- zy-shorturl -->
         <dependency>
             <groupId>cn.zzzykj</groupId>

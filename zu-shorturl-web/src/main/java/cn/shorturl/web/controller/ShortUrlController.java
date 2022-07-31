@@ -21,15 +21,15 @@ import javax.annotation.Resource;
 public class ShortUrlController {
 
     @Resource
-    private ShortUrlConfig shortUrlConfig;
-
-    @Resource
     private ShortUrlStore store;
 
     @PostConstruct
     public void init() {
-        log.info("shortUrlConfig: {}", shortUrlConfig);
         log.info("store: {}", store);
+        String url = "https://www.baidu.com";
+        String hash = store.hash(url);
+        log.info("hash: {}", hash);
+        store.add(url);
     }
 
     @GetMapping("/gen")

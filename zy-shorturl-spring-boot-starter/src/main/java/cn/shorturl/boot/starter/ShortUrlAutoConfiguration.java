@@ -34,6 +34,7 @@ public class ShortUrlAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(ShortUrlUtil.class)
     @ConditionalOnBean(ShortUrlConfig.class)
     public ShortUrlUtil shortUrlUtil(ShortUrlConfig config) {
         return new ShortUrlUtil(config);
@@ -41,10 +42,11 @@ public class ShortUrlAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(ShortUrlStore.class)
+    @ConditionalOnBean(ShortUrlUtil.class)
     @ConditionalOnProperty(prefix = "shorturl.store", name = "store-type", havingValue = "redis")
-    public ShortUrlStore redisShortUrlStore() {
+    public ShortUrlStore redisShortUrlStore(ShortUrlUtil util) {
         log.info("use short-url store: {}", RedisShortUrlStore.class.getName());
-        return new RedisShortUrlStore();
+        return new RedisShortUrlStore(util);
     }
 
 }
